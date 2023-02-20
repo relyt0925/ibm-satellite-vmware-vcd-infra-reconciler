@@ -3,7 +3,7 @@ set -x
 # ASSUMES LOGGED INTO APPROPRIATE IBM CLOUD ACCOUNT: TO DO THAT AUTOMATICALLY
 # ibmcloud login -a https://cloud.ibm.com --apikey XXXX -r us-south
 source secrets.env
-export LOCATION_ID=vmware-location-demo
+export LOCATION_ID=vmware-location-demo-2
 core_machinegroup_reconcile() {
 	export INSTANCE_DATA=/tmp/instancedata.txt
 	rm -f "$INSTANCE_DATA"
