@@ -1,6 +1,14 @@
 Connect-CIServer -Server "$Env:VCD_SERVER" -Org "$Env:VCD_ORG" -User "$Env:VCD_USER" -Pass "$Env:VCD_PASSWORD"
 New-CIVApp -Name "$Env:VAPP_NAME" -OrgVdc "$Env:VCD_ORG_VDC" -VAppTemplate "rhcos OpenShift 4.10.16" -StorageLease $null -RuntimeLease $null
-New-CIVAppNetwork -Direct -ParentOrgVdcNetwork "$Env:VCD_NETWORK" -Vapp "$Env:VAPP_NAME"
+for($i = 0; $i -le 10; $i++)
+{
+ New-CIVAppNetwork -Direct -ParentOrgVdcNetwork "$Env:VCD_NETWORK" -Vapp "$Env:VAPP_NAME"
+ if ( $?)
+ {
+  break
+ }
+ Start-Sleep -Seconds 60
+}
 Remove-CIVAppNetwork -VappNetwork "VM Network" -Confirm:$false
 $vm = Get-CIVApp -OrgVdc "$Env:VCD_ORG_VDC" -Name "$Env:VAPP_NAME" | Get-CIVM
 $vm.ExtensionData.Name="$Env:VAPP_NAME"
