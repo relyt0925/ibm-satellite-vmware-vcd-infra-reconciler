@@ -9,9 +9,9 @@ for($i = 0; $i -le 10; $i++)
 }
 for($i = 0; $i -le 10; $i++)
 {
+ $Error.Clear()
  New-CIVApp -Name "$Env:VAPP_NAME" -OrgVdc "$Env:VCD_ORG_VDC" -VAppTemplate "rhcos OpenShift 4.10.16" -StorageLease $null -RuntimeLease $null
  $erMsg = Write-Output $Error
- $Error.Clear()
  if (( $?) -or ($erMsg -contains "already exists"))
  {
   break
@@ -20,9 +20,9 @@ for($i = 0; $i -le 10; $i++)
 }
 for($i = 0; $i -le 10; $i++)
 {
+ $Error.Clear()
  New-CIVAppNetwork -Direct -ParentOrgVdcNetwork "$Env:VCD_NETWORK" -Vapp "$Env:VAPP_NAME"
  $erMsg = Write-Output $Error
- $Error.Clear()
  if (( $?) -or ($erMsg -contains "already exists"))
  {
   break
