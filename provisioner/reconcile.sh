@@ -4,7 +4,7 @@
 set +x
 source config.env
 set -x
-export LOCATION_ID=vmware-location-demo-3
+export LOCATION_ID=vmware-demo-1
 core_machinegroup_reconcile() {
 	export INSTANCE_DATA=/tmp/instancedata.txt
 	rm -f "$INSTANCE_DATA"
@@ -94,7 +94,7 @@ while true; do
 			WORKER_POOL_NAME=$(echo ${FILE} | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}')
 			source $FILE
 			if ! grep $CLUSTERID $SERVICES_DATA_FILE; then
-				if ! bx cs cluster create satellite --name $CLUSTERID --location "$LOCATION_ID" --version 4.11_openshift --operating-system RHCOS; then
+				if ! bx cs cluster create satellite --name $CLUSTERID --location "$LOCATION_ID" --version 4.10_openshift --operating-system RHCOS --enable-config-admin; then
 					continue
 				fi
 			fi
