@@ -9,8 +9,14 @@ for($i = 0; $i -le 10; $i++)
 }
 for($i = 0; $i -le 10; $i++)
 {
+    $Error.Clear()
     Stop-CIVApp -VApp "$Env:VAPP_NAME" -Confirm:$false
     if ( $?)
+    {
+        break
+    }
+    $erMsg = Write-Output $Error
+    if ($erMsg -contains "not running")
     {
         break
     }
