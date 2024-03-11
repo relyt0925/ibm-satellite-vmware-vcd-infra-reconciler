@@ -140,7 +140,7 @@ reconcile_cluster_wp_nodes() {
 				export ZONE=$(_jq_zonerawinfo '.id')
 				core_machinegroup_reconcile
 				while true; do
-					if ! bx sat host assign --location "$LOCATION_ID" --cluster "$CLUSTERID" --host-label os=RHCOS --host-label "$HOST_LABELS"; then
+					if ! bx sat host assign --location "$LOCATION_ID" --cluster "$CLUSTER_ID" --host-label os=RHCOS --host-label "$HOST_LABELS"; then
 						break
 					fi
 					sleep 5
