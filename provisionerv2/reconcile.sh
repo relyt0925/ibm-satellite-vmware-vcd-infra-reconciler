@@ -65,7 +65,7 @@ reconcile_cp_nodes() {
 		export HOST_LABELS="worker-pool=${LOCATION_ID}-cp"
 		core_machinegroup_reconcile
 		while true; do
-			if ! bx sat host assign --location "$LOCATION_ID" --zone "$ZONE" --host-label os=RHCOS --host-label "$HOST_LABELS"; then
+			if ! bx sat host assign --location "$LOCATION_ID" --zone "$ZONE" --host-label os=RHCOS --host-label zone="$ZONE" --host-label "$HOST_LABELS"; then
 				break
 			fi
 			sleep 5
